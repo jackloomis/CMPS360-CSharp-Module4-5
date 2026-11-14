@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"><title>Course Catalog</title>
+        <style>
+            li {
+                white-space: pre-line;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Course Catalog</h1>
+        <button id="load">Load Courses</button>
+        <ul id="courses"></ul>
+
+        <script>
+            document.querySelector('#load').addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/api/courses');
+                    if (!response.ok) throw new Error("Course loading failed");
+                    const courses = await response.json();
+                    const list = document.querySelector('#courses');
+                    list.replaceChildren();
+                    for (const course of courses) {
+                        const item = document.createElement('li');
+                        item.textContent = 
+                            `Course Code: ${course.code} 
+                            Course: ${course.title} 
+                            Credits: ${course.credits}`
+                        list.appendChild(item);
+                    }
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        </script>
+    </body>
+</html>

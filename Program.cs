@@ -24,6 +24,30 @@ app.MapGet("/api/courses/{id:int}", (int id) =>
     return course is null ? Results.NotFound() : Results.Ok(course);
 });
 
+app.MapGet("/api/courses/code/{code}", (string code) =>
+{
+    var course = courses.Where(c => c.Code == code);
+    return course.Any() ? Results.Ok(course.ToList()) : Results.NotFound();
+});
+
+app.MapGet("/api/courses/title/{title}", (string title) =>
+{
+    var course = courses.Where(c => c.Title == title);
+    return course.Any() ? Results.Ok(course.ToList()) : Results.NotFound();
+});
+
+app.MapGet("/api/courses/credits/{credits}", (int credits) =>
+{
+    var course = courses.Where(c => c.Credits == credits);
+    return course.Any() ? Results.Ok(course.ToList()) : Results.NotFound();
+});
+
+app.MapGet("/api/courses/instructor/{instructor}", (string instructor) =>
+{
+    var course = courses.Where(c => c.Instructor == instructor);
+    return course.Any() ? Results.Ok(course.ToList()) : Results.NotFound();
+});
+
 app.MapPost("/api/courses", (Course request) =>
 {
     if (string.IsNullOrWhiteSpace(request.Code) || string.IsNullOrWhiteSpace(request.Title) || request.Credits < 1 || request.Credits > 6 || string.IsNullOrWhiteSpace(request.Instructor))

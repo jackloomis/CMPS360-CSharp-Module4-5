@@ -38,6 +38,10 @@ A REST API built with C# and ASP.NET Core for managing a collection of universit
 |---|---|---|
 | GET | `/api/courses` | Retrieve all courses |
 | GET | `/api/courses/{id}` | Retrieve a course by ID |
+| GET | `/api/courses/code/{code}` | Retrieve a course by code |
+| GET | `/api/courses/title/{title}` | Retrieve a course by title |
+| GET | `/api/courses/credits/{credits}` | Retrieve a course by credit value |
+| GET | `/api/courses/instructor/{instructor}` | Retrieve a course by instructor name |
 | POST | `/api/courses` | Create a new course |
 | PUT | `/api/courses/{id}` | Update an existing course |
 | DELETE | `/api/courses/{id}` | Delete a course |
@@ -74,6 +78,13 @@ curl.exe -i -X GET http://localhost:5050/api/courses/1
 ```
 
 ![Example GET by ID](Screenshots/getById.png)
+
+**GET - Filter courses by property**
+```bash
+curl.exe -i -X GET http://localhost:5050/api/courses/instructor/Professor%20Seaman
+```
+
+![Example GET filter by instructor](Screenshots/exampleFilterByInstructor.png)
 
 **POST - Create a course**
 
